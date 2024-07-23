@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import PublicationsUI from './views/PublicationsUI'
+import NewPublicationUI from './views/NewPublicationUI'
 import './css/publications.css'
 
 
 function Publications(){
 
   const [products, setProducts] = useState([])
+  const [isCreatePublication, setIsCreatePublication] = useState(false)
+  const [newPublication, setNewPublication] = useState({urlImage:"", title:"", description:""})
 
   useEffect(() => {
     setProducts([
@@ -62,6 +65,23 @@ function Publications(){
     ])
   }, [])
 
+  const createPublication = () => {
+    setIsCreatePublication(true)
+  }
+
+  const closeNewPublication = () => {
+    setIsCreatePublication(false)
+  }
+
+  const getNewPublication = (e) => {
+    if(e.target.name === "urlImage"){
+      const file = e.target.files[0]
+      setNewPublication({...newPublication, urlImage: URL.createObjectURL(file)})
+    }else{
+      setNewPublication({...newPublication, [e.target.name]: e.target.value})
+    }
+  }
+
   return(
     <>
       <div id="publicationsContainer">
@@ -70,7 +90,18 @@ function Publications(){
             <PublicationsUI product={product} index={index} />
           )
         })}
+        <button onClick={() => createPublication()}>Nueva publicación</button>
       </div>
+      
+      {isCreatePublication &&
+        <div style={{width:"100vw", height:"100vh"}}>
+          <NewPublicationUI 
+            closeNewPublication={closeNewPublication} 
+            publicationsUI={<PublicationsUI product={newPublication} index={null}/>}
+            getNewPublication={getNewPublication}
+          />
+        </div>
+      }
     </>
   )
 }
