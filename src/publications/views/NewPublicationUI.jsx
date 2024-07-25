@@ -1,19 +1,19 @@
 import './../css/newPublication.css'
 
-function NewPublicationUI({closeNewPublication, publicationsUI, getNewPublication}){
+function NewPublicationUI({closeNewPublication, publicationsUI, getNewPublication, submitPublication}){
   return(
     <div id="newPublicationContainer">
       <div>
         <button onClick={() => closeNewPublication()}>Cerrar</button>
       </div>
       <div style={{display:"flex"}}>
-        <form>
+        <form onSubmit={submitPublication}>
           <div>
             <div>
               <label>Imagen</label>
             </div>
             <div>
-              <input type="file" id="image-newPublication" name="urlImage" onChange={(e) => getNewPublication(e)} />
+              <input type="file" id="image-newPublication" name="image" onChange={(e) => getNewPublication(e)} />
             </div>
             <div>
               <label>Titulo</label>
@@ -26,6 +26,9 @@ function NewPublicationUI({closeNewPublication, publicationsUI, getNewPublicatio
             </div>
             <div>
               <input type="text" id="description-newPublication" name="description" onChange={(e) => getNewPublication(e)}/>
+            </div>
+            <div>
+              <input type="submit" value="guardar" />
             </div>
 
           </div>
