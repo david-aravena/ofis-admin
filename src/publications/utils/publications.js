@@ -4,7 +4,7 @@ import { saveDocument } from "../../serverless/methods/db"
 export const savePublication = async (publication) => {
   return saveImagePublication(publication.image)
     .then((result) => {
-      const newObjPublication = Object.create(publication)
+      let newObjPublication = {...publication}
       delete newObjPublication.image
       return saveDocument({...newObjPublication, urlImage: result})
     })
