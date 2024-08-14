@@ -3,11 +3,11 @@ import './../css/newPublication.css'
 function NewPublicationUI({closeNewPublication, publicationsUI, getNewPublication, submitPublication}){
   return(
     <div id="newPublicationContainer">
-      <div style={{backgroundColor:"white", padding:"1rem", borderRadius:"10px"}}>
+      <div id="backgrounNewPublication">
         <div>
           <button onClick={() => closeNewPublication()}>Cerrar</button>
         </div>
-        <div style={{display:"flex"}}>
+        <div id="formNewPublicationContainer">
           <form onSubmit={submitPublication}>
             <div>
               <div>
@@ -34,7 +34,7 @@ function NewPublicationUI({closeNewPublication, publicationsUI, getNewPublicatio
 
             </div>
           </form>
-          <div>
+          <div style={{display:"flex", justifyContent:"center"}}>
             {publicationsUI}
           </div>
         </div>
